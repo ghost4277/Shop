@@ -1,6 +1,10 @@
 <template>
   <v-header />
   <v-main />
+  <footer>
+    <p>СТЭТХЭМ </p>
+    <p>ЛУЧШИЙ</p>
+  </footer>
 </template>
 
 <script>
@@ -21,5 +25,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-
+footer{
+  background: white;
+  display: flex;
+  justify-content: space-between;
+}
 </style>
