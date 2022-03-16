@@ -7,15 +7,25 @@
          <input type="text" placeholder="Ты это заходи если чё" class="line">
        </form>
        <button class="search__button"></button>
-       <button @click="basketVisable = !basketVisable" class="basket" ></button>
-       <!-- <img class="basket" src="https://ae01.alicdn.com/kf/U076fc12af7c8408c9107c3e20c1fefd7G.png" alt=""> -->
+       <div>
+
+      <v-basket/>
+       </div>
+      
      </div>
    </div>
  </header>
 </template>
 <script>
+import vBasket from "@/components/v-basket.vue";
 
-
+export default {
+  components: {
+    
+    vBasket
+    
+  }
+  }
 </script>
 <style scoped>
     *{
@@ -62,19 +72,5 @@
     outline: none;
     
 }
-.basket{
-     display: block;
-    width: 35px;
-    height: 35px;
-    border: none;
-    background-color: white;
-    background-image: url(https://ae01.alicdn.com/kf/U076fc12af7c8408c9107c3e20c1fefd7G.png);
-    background-position: 0 -2895px;
-    background-repeat: no-repeat;
-    color: white;
-    text-decoration: none;
-    position: relative;
-    left: 25px;
-    cursor: pointer;
-}
+
 </style>

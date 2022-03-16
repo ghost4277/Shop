@@ -2,7 +2,7 @@
   <main class="main">
     <div class="main__wrapper">
       <div class="carts">
-        <v-products v-for="product in products" :key="product" :product="product" />
+        <v-products @add="add" v-for="product in products" :key="product" :product="product" />
       </div>
     </div>
     <v-basket/>
@@ -31,8 +31,15 @@ export default {
         { image: "gym.jpg", name: "Гантели", price: "6236", sold: "444" },
         { image: "Dodge.jpg", name: "Машина", price: "124214151256", sold: "3" },
       ],
+      basketContainer:[]
     };
+    
   },
+  methods:{
+    add(product){
+      this.basketContainer.push(product)
+    }
+  }
 };
 </script>
 

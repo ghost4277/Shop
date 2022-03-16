@@ -5,16 +5,25 @@
               <p >{{product.name}}</p>
               <p>Цена:{{product.price}}</p>
               <p>Проданно:{{product.sold}}</p>
-              <button @click="addInBasket()" class="basket__add" > Добавить в корзину</button>
+              <button @click.prevent="$emit('add',product)" class="basket__add" > Добавить в корзину</button>
               </div>
           </div>
 </template>
 
 <script>
 export default {
-props:{
+    data(){
+        return{
+            basketConteiner:[]
+        }
+    },
+    methods:{
+
+    },
+    props:{
     product: Object
 }
+
 }
 </script>
 
