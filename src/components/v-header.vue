@@ -8,8 +8,8 @@
        </form>
        <button class="search__button"></button>
        <div>
-
-      <v-basket/>
+     
+      <v-basket :item="item" @delete="remove" />
        </div>
       
      </div>
@@ -20,12 +20,22 @@
 import vBasket from "@/components/v-basket.vue";
 
 export default {
+  props:{
+  item : Array
+  },
   components: {
-    
-    vBasket
-    
+   vBasket
+  },
+  methods:{
+   remove(vendorCode){
+     console.log(vendorCode)
+     this.$emit('delet',vendorCode)
+      
+    }
+    }
   }
-  }
+
+
 </script>
 <style scoped>
     *{
