@@ -2,51 +2,54 @@
   <button @click="basketVisablee" class="basket"></button>
   <div class="basket__counetr">{{ item.length }}</div>
   <div v-if="basketVisable" class="basket__wtapper">
-    <div v-if="isEmpty" class="empty">Здесь пока нет эллементов</div>
-    <div class="basket__items" v-for="p in item" :key="p.sold">
-      <img :src="require('../assets/' + p.image)" alt="" />
-       <v-switcher class="switcher" />
-      <span>{{ p.name }}</span>
-      <span>{{ p.price }}</span>
-      <button @click.prevent="$emit('delete', p.vendorCode)">Удалить</button>
-    </div>
+    <div v-if="!isEmpty" class="empty">Здесь пока нет эллементов</div>
+    <div v-else>
+      <div class="basket__items" v-for="p in item" :key="p.sold">
+        <img :src="require('../assets/' + p.image)" alt="" />
+        <v-switcher :val="p.quantity" class="switcher" />
+        <span>{{ p.name }}</span>
+        <span>{{ p.price }}</span>
+        <button @click="deleteFromBasket(p.vendorCode)">Удалить</button>
+      </div>
   </div>
+    </div>
 </template>
 
 <script>
 import VSwitcher from "@/components/v-switcher.vue";
 export default {
-  components:{
-    VSwitcher
+  components: {
+    VSwitcher,
   },
   data() {
     return {
       basketVisable: false,
-      isEmpty:true
-      
     };
   },
   props: {
     item: Array,
   },
+  computed: {
+    isEmpty() {
+      return this.item.length !== 0
+    }
+  },
   methods: {
     log() {
       console.log(this.item);
     },
-    basketVisablee(){
-        this.basketVisable = !this.basketVisable
-        if(this.item.length!=0){this.isEmpty=false}
-        else this.isEmpty=true
-        console.log(this.isEmpty)
-        console.log(this.item.length)
-
+    basketVisablee() {
+      this.basketVisable = !this.basketVisable;
+    },
+    deleteFromBasket(vendorCode) {
+      this.$emit('delete', vendorCode)
     }
   },
 };
 </script>
 
 <style scoped>
-.switcher{
+.switcher {
   margin: auto 0;
   height: 25%;
 }
@@ -96,11 +99,10 @@ export default {
   justify-content: space-between;
   text-align: center;
 }
-.empty{
-    text-align: center;
-    border: 1px solid black;
-    padding: 35px 0px;
-    width: 600px;
-
+.empty {
+  text-align: center;
+  border: 1px solid black;
+  padding: 35px 0px;
+  width: 600px;
 }
 </style>

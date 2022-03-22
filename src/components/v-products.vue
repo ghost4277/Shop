@@ -5,7 +5,7 @@
       <p>{{ product.name }}</p>
       <p>Цена:{{ product.price }}</p>
       <p>Проданно:{{ product.sold }}</p>
-      <v-switcher/>
+      <v-switcher :val="1" />
       <button @click.prevent="$emit('add', this.product)" class="basket__add">
         Добавить в корзину
       </button>

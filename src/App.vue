@@ -112,7 +112,16 @@ export default {
       // console.log(product.vendorCode)
       // if(this.basketContainer.vendorCode!==product.vendorCode){;
       // }
-      this.basketContainer.push(product);
+      const foundProduct = this.basketContainer.find(p => p.vendorCode === product.vendorCode)
+
+      if (!foundProduct) {
+        this.basketContainer.push({ ...product, quantity: 1 });
+        return
+      }
+
+      foundProduct.quantity += 1
+      console.log('Товар уже в корзине')
+
       // this.basketContainer.filter(function(item){
 
       //   if(product.vendorCode!=item.vendorCode)this.basketContainer.push(product);
