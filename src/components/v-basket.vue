@@ -35,9 +35,7 @@ export default {
     }
   },
   methods: {
-    log() {
-      console.log(this.item);
-    },
+    
     basketVisablee() {
       this.basketVisable = !this.basketVisable;
     },

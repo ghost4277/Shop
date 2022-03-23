@@ -1,10 +1,10 @@
 <template>
-  <div class="cart">
-    <img :src="require('../assets/' + product.image)" alt="" />
+<!-- v-for="pad in product" :key="pad" -->
+  <div class="cart" v-for="item in product" :key="item" >
+    <img :src="item.image" alt="" />
     <div class="cart__text">
-      <p>{{ product.name }}</p>
-      <p>Цена:{{ product.price }}</p>
-      <p>Проданно:{{ product.sold }}</p>
+      <p>{{ item.category }}</p>
+      <p>Цена:{{ item.price }}</p> 
       <v-switcher :val="1" />
       <button @click.prevent="$emit('add', this.product)" class="basket__add">
         Добавить в корзину
@@ -21,7 +21,7 @@ export default {
       VSwitcher
   },
   props: {
-    product: Object,
+    product: Array,
   },
 };
 </script>

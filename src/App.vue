@@ -3,6 +3,8 @@
   <v-header :item="basketContainer" @delet="delet" />
   <main class="main">
     <v-slider/>
+    <button @click="forfive" class="changer btn__for5" >5</button>
+    <button @click="forthree" class="changer btn__for3">3</button>
     <div class="main__wrapper">
       <div class="carts">
         <v-products
@@ -45,65 +47,67 @@ export default {
   data() {
     return {
       products: [
-        {
-          image: "snikers.jpg",
-          name: "Кросовки",
-          price: "3456",
-          sold: "31",
-          vendorCode: "A1",
-        },
-        {
-          image: "clock.jpg",
-          name: "Часы",
-          price: "3436",
-          sold: "42",
-          vendorCode: "A2",
-        },
-        {
-          image: "sergi.jpg",
-          name: "Серьги",
-          price: "3326",
-          sold: "32",
-          vendorCode: "A3",
-        },
-        {
-          image: "ring.jpg",
-          name: "Кольцо",
-          price: "6556",
-          sold: "56",
-          vendorCode: "A4",
-        },
-        {
-          image: "phone.jpg",
-          name: "Телефон",
-          price: "3431",
-          sold: "44",
-          vendorCode: "A5",
-        },
-        {
-          image: "Statham.jpg",
-          name: "Стэхэм",
-          price: "eror",
-          sold: "eror",
-          vendorCode: "A6",
-        },
-        {
-          image: "gym.jpg",
-          name: "Гантели",
-          price: "6236",
-          sold: "444",
-          vendorCode: "A7",
-        },
-        {
-          image: "Dodge.jpg",
-          name: "Машина",
-          price: "124214151256",
-          sold: "3",
-          vendorCode: "A8",
-        },
+        // {
+        // //   image: "snikers.jpg",
+        // //   name: "Кросовки",
+        // //   price: "3456",
+        // //   sold: "31",
+        // //   vendorCode: "A1",
+        // // },
+        // // {
+        // //   image: "clock.jpg",
+        // //   name: "Часы",
+        // //   price: "3436",
+        // //   sold: "42",
+        // //   vendorCode: "A2",
+        // // },
+        // // {
+        // //   image: "sergi.jpg",
+        // //   name: "Серьги",
+        // //   price: "3326",
+        // //   sold: "32",
+        // //   vendorCode: "A3",
+        // // },
+        // // {
+        // //   image: "ring.jpg",
+        // //   name: "Кольцо",
+        // //   price: "6556",
+        // //   sold: "56",
+        // //   vendorCode: "A4",
+        // // },
+        // // {
+        // //   image: "phone.jpg",
+        // //   name: "Телефон",
+        // //   price: "3431",
+        // //   sold: "44",
+        // //   vendorCode: "A5",
+        // // },
+        // // {
+        // //   image: "Statham.jpg",
+        // //   name: "Стэхэм",
+        // //   price: "eror",
+        // //   sold: "eror",
+        // //   vendorCode: "A6",
+        // // },
+        // // {
+        // //   image: "gym.jpg",
+        // //   name: "Гантели",
+        // //   price: "6236",
+        // //   sold: "444",
+        // //   vendorCode: "A7",
+        // // },
+        // // {
+        // //   image: "Dodge.jpg",
+        // //   name: "Машина",
+        // //   price: "124214151256",
+        // //   sold: "3",
+        // //   vendorCode: "A8",
+        // // },
       ],
+      isLoading: true,
       basketContainer: [],
       window: false,
+      changer: false
     };
   },
   methods: {
@@ -118,9 +122,10 @@ export default {
         this.basketContainer.push({ ...product, quantity: 1 });
         return
       }
-
       foundProduct.quantity += 1
       console.log('Товар уже в корзине')
+      console.log(foundProduct.quantity )
+
 
       // this.basketContainer.filter(function(item){
 
@@ -139,7 +144,30 @@ export default {
     closeWindow() {
       this.window = !this.window;
     },
+    forfive(){
+    this.changer=true
+    },
+    forthree(){
+
+    },
+
   },
+  created() {
+    const productsPromise = fetch('https://fakestoreapi.com/products')
+
+    productsPromise
+      .then(response => response.json())
+      .then(products => {
+        this.products = products
+      })
+      .catch(err => {
+        alert(err)
+      })
+      .finally(() => {
+        this.isLoading = false
+      })
+  }
+
 };
 </script>
 
@@ -184,6 +212,10 @@ export default {
   flex-wrap: wrap;
   max-width: 1300px;
   margin-left: 450px;
+}
+.changer{
+  position: relative;
+ 
 }
 
 footer {
