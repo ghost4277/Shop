@@ -21,10 +21,12 @@ export default {
   methods: {
     swichUp() {
       this.value++;
+       this.$emit('up')
     },
     swichDown() {
       this.value--;
       if (this.value < 1) this.value = 1;
+       this.$emit('down')
     },
   },
 

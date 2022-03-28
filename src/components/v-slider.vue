@@ -1,64 +1,84 @@
 <template>
   <div class="slider_wrapper">
-      <div class="slider">
-          <div class="slider_items">
-              <img src="@/assets/snikers.jpg" alt="" class="images"></div>
-          <div class="slider_items">
-              <img src="@/assets/clock.jpg" alt="" class="images"></div>
-          <div class="slider_items">
-              <img src="@/assets/Dodge.jpg" alt="" class="images"></div>
-          <div class="slider_items">
-              <img src="@/assets/gym.jpg" alt="" class="images"></div>
-          <div class="slider_items">
-              <img src="@/assets/phone.jpg" alt="" class="images"></div>
-          <div class="slider_items">
-              <img src="@/assets/ring.jpg" alt="" class="images"></div>
-          <div class="slider_items">
-              <img src="@/assets/sergi.jpg" alt="" class="images"></div>
-          <div class="slider_items">
-              <img src="@/assets/Statham.jpg" alt="" class="images"></div>
-      </div>
-      
-      <button class="buttons right_btn">&#8592;</button>
-      <button class="buttons left_btn">&#8594;</button>
+    <div v-for="item in slider" :key="item.id">
+      <img
+        :style="{ right: 100 * curentSlide + '%' }"
+        class="image"
+        :src="item.image"
+        alt=""
+      />
+    </div>
+    <button @click="next" class="buttons next">&#8594;</button>
+    <button @click="prev" class="buttons prev">&#8592;</button>
+    <!-- 
+&#8592; -->
   </div>
 </template>
 
 <script>
-export default {
 
-}
+export default {
+  data() {
+    return {
+        curentSlide:0,
+    };
+  },
+ 
+  props: {
+    slider: Array,
+    interval: Number
+  },
+  methods: {
+    next() {
+        if(this.curentSlide>this.slider.length-7)this.curentSlide=0
+        else this.curentSlide++
+        
+        console.log(this.curentSlide)
+    },
+    prev() {
+        if(this.curentSlide>0)this.curentSlide--
+        
+        console.log(this.curentSlide)
+
+    },
+    mounted(){
+      if(this.interval>0){
+          let vm=this;
+          setInterval(  function(){
+              vm.next()
+              
+          }, vm.interval)
+      }
+  }
+  },
+  
+};
 </script>
 
 <style scoped>
-.slider{
-    display: flex;
-    margin: 10px auto;
+.image {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  transition: 0.7s;
 }
-.slider_items{
-    margin-left: 10px;
-    border:1px solid black;
+.slider_wrapper {
+  display: flex;
+  margin: 10px auto;
+  max-width: 2000px;
+  overflow: hidden;
 }
-.images{
-    width: 400px;
-    height: 400px;
+.buttons {
+  background: #ff4747;
+  border: 1px solid #ff4747;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: white;
+  position: absolute;
+  top: 250px;
 }
-.buttons{
-    background: #ff4747;
-    border: 1px solid #ff4747;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    color:white
-}
-.right_btn{
-    position: absolute;
-    left: 0;
-    top: 280px;
-}
-.left_btn{
-    position: absolute;
-    right: 0;
-    top: 280px;
+.next {
+  right: 0;
 }
 </style>
